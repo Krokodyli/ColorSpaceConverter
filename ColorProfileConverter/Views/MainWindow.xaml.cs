@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ColorProfileConverter.ViewModels;
 
 namespace ColorProfileConverter
 {
@@ -22,6 +23,7 @@ namespace ColorProfileConverter
     {
         public MainWindow()
         {
+            this.DataContext = new MainWindowViewModel();
             InitializeComponent();
         }
     }
