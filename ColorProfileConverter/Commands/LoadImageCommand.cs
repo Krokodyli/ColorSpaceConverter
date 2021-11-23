@@ -30,7 +30,7 @@ namespace ColorProfileConverter.Commands
             if (dialog.ShowDialog() == true)
             {
                 viewModel.SourceImage = new Bitmap(dialog.FileName);
-                viewModel.TargetImage = viewModel.SourceImage;
+                viewModel.TargetImage = null;
             }
         }
     }

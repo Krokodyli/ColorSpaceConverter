@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\GenerateTargetImageCommand.cs" />
     <Compile Include="Commands\LoadImageCommand.cs" />
     <Compile Include="Commands\SaveImageCommand.cs" />
     <Compile Include="Converters\BitmapConverter.cs" />
@@ -68,6 +69,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Models\ColorProfileBitmapConverter.cs" />
+    <Compile Include="Models\ColorProfileColorConverter.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

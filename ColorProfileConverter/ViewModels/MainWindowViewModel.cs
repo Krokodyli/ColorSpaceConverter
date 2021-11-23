@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ColorProfileConverter.Commands;
 
+using ColorProfileConverter.Models;
+
 namespace ColorProfileConverter.ViewModels
 {
     internal class MainWindowViewModel : INotifyPropertyChanged
@@ -21,6 +23,7 @@ namespace ColorProfileConverter.ViewModels
         private Bitmap sourceImage, targetImage;
         public ICommand LoadImageCommand { get; set; }
         public ICommand SaveImageCommand { get; set; }
+        public ICommand GenerateTargetImageCommand { get; set; }
 
         public MainWindowViewModel()
         {
@@ -28,6 +31,7 @@ namespace ColorProfileConverter.ViewModels
             TargetColorProfile = new ColorProfile();
             LoadImageCommand = new LoadImageCommand(this);
             SaveImageCommand = new SaveImageCommand(this);
+            GenerateTargetImageCommand = new GenerateTargetImageCommand(this);
         }
 
         public ColorProfile SourceColorProfile
@@ -37,8 +41,8 @@ namespace ColorProfileConverter.ViewModels
         }
         public ColorProfile TargetColorProfile
         {
-            get => sourceColorProfile;
-            set { sourceColorProfile = value; OnPropertyChanged(); }
+            get => targetColorProfile;
+            set { targetColorProfile = value; OnPropertyChanged(); }
         }
 
         public Bitmap SourceImage 

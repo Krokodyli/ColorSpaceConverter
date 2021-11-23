@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ColorProfileConverter.ViewModels
+namespace ColorProfileConverter.Models
 {
     public class ColorProfile : INotifyPropertyChanged
     {
@@ -18,9 +18,7 @@ namespace ColorProfileConverter.ViewModels
         private double whiteX, whiteY;
         private double gamma;
 
-        public ColorProfile()
-        {
-        }
+        public ColorProfile() { }
 
         public double RedX { get { return redX; } set { redX = value; OnPropertyChanged();  } }
         public double RedY { get { return redY; } set { redY = value; OnPropertyChanged();  } }

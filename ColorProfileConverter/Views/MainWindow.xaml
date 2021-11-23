@@ -19,7 +19,8 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem
-                Header="Generate">
+                Header="Generate"
+                Command="{Binding GenerateTargetImageCommand}">
             </MenuItem>
             <MenuItem 
                 Header="Load source image"

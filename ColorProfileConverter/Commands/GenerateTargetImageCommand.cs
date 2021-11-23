@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ColorProfileConverter.Models;
 using ColorProfileConverter.ViewModels;
-using Microsoft.Win32;
 
 namespace ColorProfileConverter.Commands
 {
-    class SaveImageCommand : ICommand
+    class GenerateTargetImageCommand : ICommand
     {
         private MainWindowViewModel viewModel;
 
-        public SaveImageCommand(MainWindowViewModel viewModel)
+        public GenerateTargetImageCommand(MainWindowViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
@@ -26,15 +26,15 @@ namespace ColorProfileConverter.Commands
 
         public bool CanExecute(object parameter)
         {
-            return viewModel.TargetImage != null;
+            return viewModel.SourceImage != null;
         }
 
         public void Execute(object parameter)
         {
-            var dialog = new SaveFileDialog();
-            dialog.Filter = "Image files (*.png)|*.png";
-            if(dialog.ShowDialog() == true)
-                viewModel.TargetImage.Save(dialog.FileName);
+
+            var converter = new ColorProfileBitmapConverter(viewModel.SourceColorProfile,
+                                                            viewModel.TargetColorProfile);
+            viewModel.TargetImage = converter.Convert(viewModel.SourceImage);
         }
     }
 }
