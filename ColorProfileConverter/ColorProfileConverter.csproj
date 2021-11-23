@@ -60,6 +60,7 @@
     <Compile Include="Commands\LoadImageCommand.cs" />
     <Compile Include="Commands\SaveImageCommand.cs" />
     <Compile Include="Converters\BitmapConverter.cs" />
+    <Compile Include="Models\ColorMatrix.cs" />
     <Compile Include="Models\ColorProfile.cs" />
     <Page Include="Views\ColorProfilePicker.xaml">
       <SubType>Designer</SubType>

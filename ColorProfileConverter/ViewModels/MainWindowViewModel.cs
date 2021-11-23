@@ -32,6 +32,26 @@ namespace ColorProfileConverter.ViewModels
             LoadImageCommand = new LoadImageCommand(this);
             SaveImageCommand = new SaveImageCommand(this);
             GenerateTargetImageCommand = new GenerateTargetImageCommand(this);
+
+            SourceColorProfile.Gamma = 2.2;
+            SourceColorProfile.WhiteX = 0.3127;
+            SourceColorProfile.WhiteY = 0.329;
+            SourceColorProfile.RedX = 0.64;
+            SourceColorProfile.RedY = 0.33;
+            SourceColorProfile.GreenX = 0.3;
+            SourceColorProfile.GreenY = 0.6;
+            SourceColorProfile.BlueX = 0.15;
+            SourceColorProfile.BlueY = 0.06;
+
+            TargetColorProfile.Gamma = 1.2;
+            TargetColorProfile.WhiteX = 0.3457;
+            TargetColorProfile.WhiteY = 0.3585;
+            TargetColorProfile.RedX = 0.7347;
+            TargetColorProfile.RedY = 0.2653;
+            TargetColorProfile.GreenX = 0.1152;
+            TargetColorProfile.GreenY = 0.8264;
+            TargetColorProfile.BlueX = 0.1566;
+            TargetColorProfile.BlueY = 0.0177;
         }
 
         public ColorProfile SourceColorProfile
