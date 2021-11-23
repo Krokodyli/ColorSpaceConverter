@@ -1,24 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using ColorProfileConverter.Commands;
 
 namespace ColorProfileConverter.ViewModels
 {
-    internal class MainWindowViewModel
+    internal class MainWindowViewModel : INotifyPropertyChanged
     {
-        public ColorProfile SourceColorProfile { get; set; }
-        public ColorProfile TargetColorProfile { get; set; }
 
-        public Bitmap SourceImage { get; set; }
-        public Bitmap TargetImage { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private ColorProfile sourceColorProfile, targetColorProfile;
+
+        private Bitmap sourceImage, targetImage;
+        public ICommand LoadImageCommand { get; set; }
+        public ICommand SaveImageCommand { get; set; }
 
         public MainWindowViewModel()
         {
             SourceColorProfile = new ColorProfile();
             TargetColorProfile = new ColorProfile();
+            LoadImageCommand = new LoadImageCommand(this);
+            SaveImageCommand = new SaveImageCommand(this);
+        }
+
+        public ColorProfile SourceColorProfile
+        {
+            get => sourceColorProfile;
+            set { sourceColorProfile = value; OnPropertyChanged(); }
+        }
+        public ColorProfile TargetColorProfile
+        {
+            get => sourceColorProfile;
+            set { sourceColorProfile = value; OnPropertyChanged(); }
+        }
+
+        public Bitmap SourceImage 
+        {
+            get => sourceImage;
+            set { sourceImage = value; OnPropertyChanged(); }
+        }
+
+        public Bitmap TargetImage
+        {
+            get => targetImage;
+            set { targetImage = value; OnPropertyChanged(); }
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

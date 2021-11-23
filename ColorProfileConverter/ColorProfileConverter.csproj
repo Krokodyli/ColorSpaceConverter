@@ -56,6 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\LoadImageCommand.cs" />
+    <Compile Include="Commands\SaveImageCommand.cs" />
+    <Compile Include="Converters\BitmapConverter.cs" />
     <Compile Include="Models\ColorProfile.cs" />
     <Page Include="Views\ColorProfilePicker.xaml">
       <SubType>Designer</SubType>
@@ -104,8 +107,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

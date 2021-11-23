@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ColorProfileConverter"
+        xmlns:converters="clr-namespace:ColorProfileConverter.Converters"
         mc:Ignorable="d"
         Title="Color Profile Converter" Height="600" Width="1000"
         ResizeMode="NoResize">
+    <Window.Resources>
+        <converters:BitmapConverter x:Key="bitmapConverter"></converters:BitmapConverter>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"></RowDefinition>
@@ -14,12 +18,16 @@
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem 
-                Header="Load source image">
+            <MenuItem
+                Header="Generate">
             </MenuItem>
             <MenuItem 
-                Header="Save target image" 
-                IsEnabled="False">
+                Header="Load source image"
+                Command="{Binding LoadImageCommand}">
+            </MenuItem>
+            <MenuItem 
+                Header="Save target image"
+                Command="{Binding SaveImageCommand}">
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1">
@@ -53,11 +61,15 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0"
-                   Margin="20 20 20 20">
+                   Margin="20 20 20 20"
+                   Source="{Binding Path=SourceImage,
+                                    Converter={StaticResource ResourceKey=bitmapConverter}}">
             </Image> 
 
             <Image Grid.Column="1"
-                   Margin="20 20 20 20">
+                   Margin="20 20 20 20"
+                   Source="{Binding Path=TargetImage,
+                                    Converter={StaticResource ResourceKey=bitmapConverter}}">
             </Image> 
         </Grid>
     </Grid>
