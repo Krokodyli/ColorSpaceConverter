@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ColorProfileConverter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding RelativeSource={RelativeSource self}}">
@@ -60,7 +59,7 @@
                  Grid.Row="2"
                  Style="{StaticResource ResourceKey=textBoxStyle}"
                  Text="{Binding Path=ColorProfile.Gamma, Mode=TwoWay,
-                        UpdateSourceTrigger=PropertyChanged}">
+                        UpdateSourceTrigger=LostFocus}">
         </TextBox>
         <TextBlock Grid.Column="0"
                    Grid.Row="3"
@@ -71,7 +70,7 @@
                  Grid.Row="3"
                  Style="{StaticResource ResourceKey=textBoxStyle}"
                  Text="{Binding ColorProfile.WhiteX,
-                        UpdateSourceTrigger=PropertyChanged}">
+                        UpdateSourceTrigger=LostFocus}">
         </TextBox>
         <TextBlock Grid.Column="0"
                    Grid.Row="4"
@@ -82,7 +81,7 @@
                  Grid.Row="4"
                  Style="{StaticResource ResourceKey=textBoxStyle}"
                  Text="{Binding ColorProfile.WhiteY,
-                        UpdateSourceTrigger=PropertyChanged}">
+                        UpdateSourceTrigger=LostFocus}">
         </TextBox>
         <TextBlock Grid.Column="3"
                    Grid.Row="0"
@@ -113,37 +112,37 @@
                  Grid.Row="1"
                  Style="{StaticResource ResourceKey=textBoxStyle}"
                  Text="{Binding ColorProfile.RedX,
-                        UpdateSourceTrigger=PropertyChanged}">
+                        UpdateSourceTrigger=LostFocus}">
         </TextBox>
         <TextBox Grid.Column="4"
                  Grid.Row="1"
                  Style="{StaticResource ResourceKey=textBoxStyle}"
                  Text="{Binding ColorProfile.RedY,
-                        UpdateSourceTrigger=PropertyChanged}">
+                        UpdateSourceTrigger=LostFocus}">
         </TextBox>
         <TextBox Grid.Column="3"
                  Grid.Row="2"
                  Style="{StaticResource ResourceKey=textBoxStyle}"
                  Text="{Binding ColorProfile.GreenX,
-                        UpdateSourceTrigger=PropertyChanged}">
+                        UpdateSourceTrigger=LostFocus}">
         </TextBox>
         <TextBox Grid.Column="4"
                  Grid.Row="2"
                  Style="{StaticResource ResourceKey=textBoxStyle}"
                  Text="{Binding ColorProfile.GreenY,
-                        UpdateSourceTrigger=PropertyChanged}">
+                        UpdateSourceTrigger=LostFocus}">
         </TextBox>
         <TextBox Grid.Column="3"
                  Grid.Row="3"
                  Style="{StaticResource ResourceKey=textBoxStyle}"
                  Text="{Binding ColorProfile.BlueX,
-                        UpdateSourceTrigger=PropertyChanged}">
+                        UpdateSourceTrigger=LostFocus}">
         </TextBox>
         <TextBox Grid.Column="4"
                  Grid.Row="3"
                  Style="{StaticResource ResourceKey=textBoxStyle}"
                  Text="{Binding ColorProfile.BlueY,
-                        UpdateSourceTrigger=PropertyChanged}">
+                        UpdateSourceTrigger=LostFocus}">
         </TextBox>
     </Grid>
 </UserControl>

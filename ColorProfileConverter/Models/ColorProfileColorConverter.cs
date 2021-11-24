@@ -23,8 +23,10 @@ namespace ColorProfileConverter.Models
             targetGamma = targetProfile.Gamma;
             transformationMatrixFromSource
                 = GenerateTransformationMatrix(sourceProfile);
-            transformationMatrixToTarget
-                = GenerateTransformationMatrix(targetProfile).GetInverse();
+
+            transformationMatrixToTarget = getInverseOrThrowException(
+                GenerateTransformationMatrix(targetProfile)
+            );
         }
 
         public Color Convert(Color color)
@@ -78,7 +80,7 @@ namespace ColorProfileConverter.Models
             };
 
             var colorMatrix = new ColorMatrix(profile);
-            var inverse = colorMatrix.GetInverse();
+            var inverse = getInverseOrThrowException(colorMatrix);
             var S = inverse * whitePoint;
 
             colorMatrix.multiplyMatrixColumnsByCoefficients(S);
@@ -111,6 +113,14 @@ namespace ColorProfileConverter.Models
             for (int i = 0; i < 3; i++)
                 colorVector[i] = Math.Max(Math.Min(colorVector[i], 1.0), 0.0);
             return colorVector;
+        }
+
+        private ColorMatrix getInverseOrThrowException(ColorMatrix colorMatrix)
+        {
+            if (colorMatrix.IsInvertible())
+                return colorMatrix.GetInverse();
+            else
+                throw new ArgumentException();
         }
     }
 

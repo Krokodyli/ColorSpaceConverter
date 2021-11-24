@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using ColorProfileConverter.Models;
 using ColorProfileConverter.ViewModels;
@@ -34,7 +35,18 @@ namespace ColorProfileConverter.Commands
             var sourceProfile = viewModel.SourceColorProfile;
             var targetProfile = viewModel.TargetColorProfile;
 
-            var converter = new ColorProfileColorConverter(sourceProfile, targetProfile);
+            ColorConverter converter;
+
+            try
+            {
+                converter = new ColorProfileColorConverter(sourceProfile, targetProfile);
+            }
+            catch(ArgumentException ex)
+            {
+                MessageBox.Show("Color coordinates do not form a triangle");
+                return;
+            }
+
             var bitmapConverter = new BitmapConverter(converter);
             viewModel.TargetImage = bitmapConverter.Convert(viewModel.SourceImage);
         }

@@ -98,5 +98,16 @@ namespace ColorProfileConverter.Models.Tests
             return profile;
         }
 
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void CtorShouldThrowExceptionWhenMatrixIsNotInvertible()
+        {
+            var profile = new ColorProfile();
+            profile.Gamma = 2;
+            profile.RedX = profile.BlueX = profile.GreenX = 0.1;
+            profile.RedY = profile.BlueY = profile.GreenY = 0.3;
+
+            var converter = new ColorProfileColorConverter(profile, profile);
+        }
     }
 }
