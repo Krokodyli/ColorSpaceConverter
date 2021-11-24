@@ -38,5 +38,7 @@ namespace ColorProfileConverter
             };
         }
 
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+            => MainGrid.Focus();
     }
 }

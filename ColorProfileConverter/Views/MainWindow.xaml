@@ -7,11 +7,12 @@
         xmlns:converters="clr-namespace:ColorProfileConverter.Converters"
         mc:Ignorable="d"
         Title="Color Profile Converter" Height="600" Width="1000"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        MouseDown="Window_MouseDown">
     <Window.Resources>
         <converters:BitmapConverter x:Key="bitmapConverter"></converters:BitmapConverter>
     </Window.Resources>
-    <Grid>
+    <Grid Focusable="True" Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
