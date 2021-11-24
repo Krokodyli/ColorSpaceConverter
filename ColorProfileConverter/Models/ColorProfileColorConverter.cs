@@ -9,7 +9,7 @@ using ColorProfileConverter.Models;
 
 namespace ColorProfileConverter.Models
 {
-    public class ColorProfileColorConverter
+    public class ColorProfileColorConverter : ColorConverter
     {
         private double sourceGamma, targetGamma;
 
@@ -29,29 +29,46 @@ namespace ColorProfileConverter.Models
 
         public Color Convert(Color color)
         {
-            var xyzColor = colorConvertFromSource(color);
-            return colorConvertToTarget(xyzColor);
+            var xyzColor = ConvertSourceProfileColorToXYZColor(color);
+            return ConvertXYZColorToTargetProfile(xyzColor);
         }
 
-        public double[] colorConvertFromSource(Color color)
+        public double[] ConvertSourceProfileColorToXYZColor(Color color)
         {
             double[] colorVector = colorToVectorRGB(color);
-            colorVector = fixColorVector(transformationMatrixFromSource * colorVector);
-            for (int i = 0; i < 3; i++)
-                colorVector[i] = (double)Math.Pow(colorVector[i], sourceGamma);
+
+            colorVector = applyGammaTransformation(colorVector, sourceGamma);
+
+            colorVector = applyTransformationMatrix(colorVector, 
+                transformationMatrixFromSource);
+
             return colorVector;
         }
 
-        public Color colorConvertToTarget(double[] colorVector)
+        public Color ConvertXYZColorToTargetProfile(double[] colorVector)
         {
+            colorVector = applyTransformationMatrix(colorVector,
+                transformationMatrixToTarget);
 
-            colorVector = fixColorVector(transformationMatrixToTarget * colorVector);
-            for (int i = 0; i < 3; i++)
-                colorVector[i] = (double)Math.Pow(colorVector[i], 1 / targetGamma);
+            colorVector = applyGammaTransformation(colorVector, 1 / targetGamma);
+
             return vectorRGB2Color(colorVector);
         }
 
-        public ColorMatrix GenerateTransformationMatrix(ColorProfile profile)
+        public double[] applyTransformationMatrix(double[] colorVector, 
+                                                  ColorMatrix transformationMatrix)
+        {
+            return normalizeColorVector(transformationMatrix * colorVector);
+        }
+
+        private double[] applyGammaTransformation(double[] colorVector, double gamma)
+        {
+            for (int i = 0; i < 3; i++)
+                colorVector[i] = Math.Pow(colorVector[i], gamma);
+            return colorVector;
+        }
+
+        private ColorMatrix GenerateTransformationMatrix(ColorProfile profile)
         {
             double[] whitePoint = new double[3]
             {
@@ -89,7 +106,7 @@ namespace ColorProfileConverter.Models
             );
         }
 
-        private double[] fixColorVector(double[] colorVector)
+        private double[] normalizeColorVector(double[] colorVector)
         {
             for (int i = 0; i < 3; i++)
                 colorVector[i] = Math.Max(Math.Min(colorVector[i], 1.0), 0.0);

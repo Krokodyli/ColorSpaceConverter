@@ -9,15 +9,13 @@ using ColorProfileConverter.ViewModels;
 
 namespace ColorProfileConverter.Models
 {
-    class ColorProfileBitmapConverter
+    public class BitmapConverter
     {
-        ColorProfileColorConverter converter;
+        ColorConverter converter;
        
-        public ColorProfileBitmapConverter(ColorProfile sourceColorProfile,
-                                           ColorProfile targetColorProfile)
+        public BitmapConverter(ColorConverter converter)
         {
-            converter = new ColorProfileColorConverter(sourceColorProfile, 
-                                                       targetColorProfile);
+            this.converter = converter;
         }
 
         public Bitmap Convert(Bitmap sourceImage)

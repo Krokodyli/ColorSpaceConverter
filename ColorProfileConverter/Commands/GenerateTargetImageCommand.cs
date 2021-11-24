@@ -31,10 +31,12 @@ namespace ColorProfileConverter.Commands
 
         public void Execute(object parameter)
         {
+            var sourceProfile = viewModel.SourceColorProfile;
+            var targetProfile = viewModel.TargetColorProfile;
 
-            var converter = new ColorProfileBitmapConverter(viewModel.SourceColorProfile,
-                                                            viewModel.TargetColorProfile);
-            viewModel.TargetImage = converter.Convert(viewModel.SourceImage);
+            var converter = new ColorProfileColorConverter(sourceProfile, targetProfile);
+            var bitmapConverter = new BitmapConverter(converter);
+            viewModel.TargetImage = bitmapConverter.Convert(viewModel.SourceImage);
         }
     }
 }

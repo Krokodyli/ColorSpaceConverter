@@ -101,13 +101,37 @@ namespace ColorProfileConverter.Models
                     matrix[i, c] *= v[c];
         }
 
-
         public double this[int r, int c]
         {
             get => matrix[r, c];
             set => matrix[r, c] = value;
         }
 
+        public bool Equals(ColorMatrix other)
+        {
+            var tolerance = 0.00001;
+            for (int r = 0; r < 3; r++)
+                for (int c = 0; c < 3; c++)
+                    if (Math.Abs(matrix[r, c]-other.matrix[r, c]) > tolerance)
+                        return false;
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as ColorMatrix);
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = matrix[0, 0].GetHashCode();
+            for(int i = 1; i < 9; i++)
+            {
+                hashCode *= 17;
+                hashCode += matrix[i / 3, i % 3].GetHashCode();
+            }
+            return hashCode;
+        }
         private double get2x2Determinant(int r, int c)
         {
             int r1 = (r + 2) % 3, r2 = (r + 1) % 3;
@@ -128,29 +152,5 @@ namespace ColorProfileConverter.Models
             return matrix[r1, c1] * matrix[r2, c2] - matrix[r1, c2] * matrix[r2, c1];
         }
 
-        public bool Equals(ColorMatrix other)
-        {
-            var tolerance = 0.00001;
-            for (int r = 0; r < 3; r++)
-                for (int c = 0; c < 3; c++)
-                    if (Math.Abs(matrix[r, c]-other.matrix[r, c]) > tolerance)
-                        return false;
-            return true;
-        }
-        public override bool Equals(object obj)
-        {
-            return this.Equals(obj as ColorMatrix);
-        }
-
-        public override int GetHashCode()
-        {
-            int hashCode = matrix[0, 0].GetHashCode();
-            for(int i = 1; i < 9; i++)
-            {
-                hashCode *= 17;
-                hashCode += matrix[i / 3, i % 3].GetHashCode();
-            }
-            return hashCode;
-        }
     }
 }

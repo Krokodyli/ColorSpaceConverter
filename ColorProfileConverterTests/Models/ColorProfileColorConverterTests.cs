@@ -6,25 +6,69 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 
 namespace ColorProfileConverter.Models.Tests
 {
     [TestClass()]
     public class ColorProfileColorConverterTests
     {
+
         [TestMethod()]
-        public void GenerateTransformationMatrixTest()
+        public void SameProfileColorConversionWithNoGamma()
         {
-            var profile = get_SRGB_D65_profile();
+            var color = Color.FromArgb(184, 213, 21);
+            var profile = getSRPGProfile();
+            profile.Gamma = 1;
             var converter = new ColorProfileColorConverter(profile, profile);
-            var actual = converter.GenerateTransformationMatrix(profile);
-            var expected = get_SRGB_D65_Transformation_Matrix();
-            for (int i = 0; i < 9; i++)
-                Assert.AreEqual(expected[i / 3, i % 3], actual[i / 3, i % 3], 0.001);
+            var convertedColor = converter.Convert(color);
+
+            Assert.AreEqual(color, convertedColor);
         }
 
+        [TestMethod()]
+        public void SameProfileColorConversionWithGammaEqual2()
+        {
+            var color = Color.FromArgb(125, 125, 125);
+            var profile = getSRPGProfile();
+            profile.Gamma = 2;
+            var converter = new ColorProfileColorConverter(profile, profile);
+            var convertedColor = converter.Convert(color);
 
-        private ColorProfile getWideGamut()
+            Assert.AreEqual(color, convertedColor);
+        }
+
+        [TestMethod()]
+        public void SameProfileColorConversionWithGammaEqualOneThird()
+        {
+            var tolerance = 3;
+            var color = Color.FromArgb(200, 125, 124);
+            var profile = getSRPGProfile();
+            profile.Gamma = 0.33;
+            var converter = new ColorProfileColorConverter(profile, profile);
+            var convertedColor = converter.Convert(color);
+
+            var error = Math.Abs(color.R - convertedColor.R);
+            error += Math.Abs(color.G - convertedColor.G);
+            error += Math.Abs(color.B - convertedColor.B);
+
+            ConsoleOutput.Instance.WriteLine($"Error = {error}", OutputLevel.Information);
+
+            Assert.IsTrue(error <= tolerance, $"Error is too big (Error={error})");
+        }
+
+        [TestMethod()]
+        public void TestFromProjectExample()
+        {
+            var color = new double[3] { 0.299, 0.16, 0.0656 };
+            var expectedColor = Color.FromArgb(215, 35, 67);
+            var profile = getSRPGProfile();
+            var converter = new ColorProfileColorConverter(profile, profile);
+            var converterColor = converter.ConvertXYZColorToTargetProfile(color);
+            Assert.AreEqual(expectedColor, converterColor);
+        }
+
+        private ColorProfile getWideGamutProfile()
         {
             var profile = new ColorProfile();
             profile.RedX = 0.7347;
@@ -39,7 +83,7 @@ namespace ColorProfileConverter.Models.Tests
             return profile;
         }
 
-        private ColorProfile get_SRGB_D65_profile()
+        private ColorProfile getSRPGProfile()
         {
             var profile = new ColorProfile();
             profile.RedX = 0.64;
@@ -54,31 +98,5 @@ namespace ColorProfileConverter.Models.Tests
             return profile;
         }
 
-        private ColorMatrix get_SRGB_D65_Transformation_Matrix()
-            => new ColorMatrix(new double[3, 3]
-               {
-                { 0.4124,  0.3576,  0.1805 },
-                { 0.2126,  0.7152,  0.0722 },
-                { 0.0193,  0.1192,  0.9505 }
-               });
-
-        [TestMethod()]
-        public void colorConvertToTargetTest()
-        {
-            var profile = get_SRGB_D65_profile();
-            var converter = new ColorProfileColorConverter(profile, profile);
-
-            var xyzVector = new double[3]
-            {
-                0.2990,
-                0.1600,
-                0.0656
-            };
-
-            var expected = Color.FromArgb(215, 35, 67);
-            var actual = converter.colorConvertToTarget(xyzVector);
-
-            Assert.AreEqual(expected, actual);
-        }
     }
 }
