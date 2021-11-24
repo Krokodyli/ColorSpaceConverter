@@ -56,10 +56,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\ChangeToPredefinedColorProfileCommand.cs" />
     <Compile Include="Commands\GenerateTargetImageCommand.cs" />
     <Compile Include="Commands\LoadImageCommand.cs" />
     <Compile Include="Commands\SaveImageCommand.cs" />
     <Compile Include="Converters\BitmapConverter.cs" />
+    <Compile Include="Data\PredefinedColorProfiles.cs" />
     <Compile Include="Models\ColorMatrix.cs" />
     <Compile Include="Models\ColorProfile.cs" />
     <Page Include="Views\ColorProfilePicker.xaml">
@@ -111,6 +113,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="predefinedProfiles.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

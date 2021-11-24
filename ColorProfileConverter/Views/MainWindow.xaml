@@ -44,13 +44,20 @@
                     Label="Source color profile"
                     ColorProfile="{Binding Path=DataContext.SourceColorProfile,
                                    RelativeSource={RelativeSource Mode=FindAncestor,
+                                   AncestorType={x:Type local:MainWindow}}}"
+                    PredefinedColorProfiles="{Binding DataContext.PredefinedColorProfiles,
+                                   RelativeSource={RelativeSource Mode=FindAncestor,
                                    AncestorType={x:Type local:MainWindow}}}">
                 </local:ColorProfilePicker>
             </Grid>
             <Grid Grid.Column="3">
                 <local:ColorProfilePicker 
+                    x:Name="TargetColorProfilePicker"
                     Label="Target color profile"
                     ColorProfile="{Binding Path=DataContext.TargetColorProfile,
+                                   RelativeSource={RelativeSource Mode=FindAncestor,
+                                   AncestorType={x:Type local:MainWindow}}}"
+                    PredefinedColorProfiles="{Binding DataContext.PredefinedColorProfiles,
                                    RelativeSource={RelativeSource Mode=FindAncestor,
                                    AncestorType={x:Type local:MainWindow}}}">
                 </local:ColorProfilePicker>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PredefinedColorProfiles xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Profiles>
+		<Profile>
+			<Key>sRGB</Key>
+			<Config>
+				<Gamma>2.2</Gamma>
+				<WhiteX>0.3127</WhiteX>
+				<WhiteY>0.329</WhiteY>
+				<RedX>0.64</RedX>
+				<RedY>0.33</RedY>
+				<GreenX>0.3</GreenX>
+				<GreenY>0.6</GreenY>
+				<BlueX>0.15</BlueX>
+				<BlueY>0.06</BlueY>
+			</Config>
+		</Profile>
+		<Profile>
+			<Key>Wide Gamut</Key>
+			<Config>
+				<Gamma>1.2</Gamma>
+				<WhiteX>0.3457</WhiteX>
+				<WhiteY>0.3585</WhiteY>
+				<RedX>0.7347</RedX>
+				<RedY>0.2653</RedY>
+				<GreenX>0.1152</GreenX>
+				<GreenY>0.8264</GreenY>
+				<BlueX>0.1566</BlueX>
+				<BlueY>0.0177</BlueY>
+			</Config>
+		</Profile>
+	</Profiles>
+</PredefinedColorProfiles>

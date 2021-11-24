@@ -21,10 +21,21 @@ namespace ColorProfileConverter
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel viewModel;
+
         public MainWindow()
         {
-            this.DataContext = new MainWindowViewModel();
+            viewModel = new MainWindowViewModel();
+            this.DataContext = viewModel;
+
             InitializeComponent();
+
+            this.Loaded += (object sender, RoutedEventArgs e) =>
+            {
+                SourceColorProfilePicker.UpdateColorProfile();
+                TargetColorProfilePicker.UpdateColorProfile();
+            };
         }
+
     }
 }

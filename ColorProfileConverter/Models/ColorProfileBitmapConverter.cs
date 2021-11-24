@@ -14,7 +14,7 @@ namespace ColorProfileConverter.Models
         ColorProfileColorConverter converter;
        
         public ColorProfileBitmapConverter(ColorProfile sourceColorProfile,
-                                     ColorProfile targetColorProfile)
+                                           ColorProfile targetColorProfile)
         {
             converter = new ColorProfileColorConverter(sourceColorProfile, 
                                                        targetColorProfile);

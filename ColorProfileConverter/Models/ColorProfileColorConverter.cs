@@ -82,8 +82,6 @@ namespace ColorProfileConverter.Models
         {
             if (color.Length != 3)
                 throw new ArgumentException();
-            for (int i = 0; i < 3; i++)
-                color[i] = Math.Max(Math.Min(color[i], 1.0), 0.0);
             return Color.FromArgb(
                 (int)(color[0] * 255),
                 (int)(color[1] * 255),

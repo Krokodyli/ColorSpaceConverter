@@ -23,8 +23,7 @@ namespace ColorProfileConverter.Models
         {
             if (matrixToClone == null
                 || matrixToClone.GetLength(0) != 3
-                || matrixToClone.GetLength(1) != 3
-                || matrixToClone.Length != 9)
+                || matrixToClone.GetLength(1) != 3)
                 throw new ArgumentException();
 
             matrix = new double[3, 3];
@@ -131,7 +130,7 @@ namespace ColorProfileConverter.Models
 
         public bool Equals(ColorMatrix other)
         {
-            var tolerance = 0.0001f;
+            var tolerance = 0.00001;
             for (int r = 0; r < 3; r++)
                 for (int c = 0; c < 3; c++)
                     if (Math.Abs(matrix[r, c]-other.matrix[r, c]) > tolerance)

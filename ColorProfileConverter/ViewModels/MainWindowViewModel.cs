@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml;
+using System.Xml.Serialization;
 using ColorProfileConverter.Commands;
-
+using ColorProfileConverter.Data;
 using ColorProfileConverter.Models;
 
 namespace ColorProfileConverter.ViewModels
@@ -16,11 +19,15 @@ namespace ColorProfileConverter.ViewModels
     internal class MainWindowViewModel : INotifyPropertyChanged
     {
 
+        private ColorProfile sourceColorProfile, targetColorProfile;
+        private Bitmap sourceImage, targetImage;
+
+        private const String PredefinedColorProfilesConfigFilePath = @"predefinedProfiles.xml";
+        public Dictionary<string, ColorProfile> PredefinedColorProfiles { get; set; }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ColorProfile sourceColorProfile, targetColorProfile;
-
-        private Bitmap sourceImage, targetImage;
         public ICommand LoadImageCommand { get; set; }
         public ICommand SaveImageCommand { get; set; }
         public ICommand GenerateTargetImageCommand { get; set; }
@@ -33,25 +40,7 @@ namespace ColorProfileConverter.ViewModels
             SaveImageCommand = new SaveImageCommand(this);
             GenerateTargetImageCommand = new GenerateTargetImageCommand(this);
 
-            SourceColorProfile.Gamma = 2.2;
-            SourceColorProfile.WhiteX = 0.3127;
-            SourceColorProfile.WhiteY = 0.329;
-            SourceColorProfile.RedX = 0.64;
-            SourceColorProfile.RedY = 0.33;
-            SourceColorProfile.GreenX = 0.3;
-            SourceColorProfile.GreenY = 0.6;
-            SourceColorProfile.BlueX = 0.15;
-            SourceColorProfile.BlueY = 0.06;
-
-            TargetColorProfile.Gamma = 1.2;
-            TargetColorProfile.WhiteX = 0.3457;
-            TargetColorProfile.WhiteY = 0.3585;
-            TargetColorProfile.RedX = 0.7347;
-            TargetColorProfile.RedY = 0.2653;
-            TargetColorProfile.GreenX = 0.1152;
-            TargetColorProfile.GreenY = 0.8264;
-            TargetColorProfile.BlueX = 0.1566;
-            TargetColorProfile.BlueY = 0.0177;
+            loadPredefinedProfiles();
         }
 
         public ColorProfile SourceColorProfile
@@ -80,6 +69,26 @@ namespace ColorProfileConverter.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private void loadPredefinedProfiles()
+        {
+            var predefinedProfiles = new PredefinedColorProfiles();
+            var path = PredefinedColorProfilesConfigFilePath;
+            try
+            {
+                using (var reader = XmlReader.Create(path))
+                {
+                    var xmlSerializer = new XmlSerializer(typeof(PredefinedColorProfiles));
+                    predefinedProfiles = (PredefinedColorProfiles)xmlSerializer.Deserialize(reader);
+                }
+            }
+            catch (Exception)
+            {
+                this.PredefinedColorProfiles = new Dictionary<string, ColorProfile>();
+                return;
+            }
+            this.PredefinedColorProfiles = predefinedProfiles.GetPredefinedProfiles();
         }
     }
 }

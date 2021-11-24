@@ -78,6 +78,16 @@ namespace ColorProfileConverter.Models.Tests
                     {  0.067, -0.245,  1.272 }
                 });
 
+        private ColorMatrix getMultipliedByCoefficients2()
+            => new ColorMatrix(
+                new double[,]
+                {
+                    {  0.64,  0.6, 0.45 },
+                    {  0.33,  1.2, 0.18 },
+                    {  0.03,  0.2, 2.37 }
+                });
+
+
 
 
         private double delta = 0.0001;
@@ -156,6 +166,16 @@ namespace ColorProfileConverter.Models.Tests
             matrix.multiplyMatrixColumnsByCoefficients(coefficients);
             Assert.AreEqual(expected, matrix);
         }
+
+        [TestMethod()]
+        public void multiplyMatrixColumnsByCoefficientsTest2()
+        {
+            var actual = new ColorMatrix(getColorProfile2());
+            actual.multiplyMatrixColumnsByCoefficients(getCoefficients1());
+            var expected = getMultipliedByCoefficients2();
+            Assert.AreEqual(expected, actual);
+        }
+
 
         [TestMethod()]
         public void EqualsTest()
