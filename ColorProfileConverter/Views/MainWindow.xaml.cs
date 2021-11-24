@@ -34,6 +34,7 @@ namespace ColorProfileConverter
             {
                 SourceColorProfilePicker.UpdateColorProfile();
                 TargetColorProfilePicker.UpdateColorProfile();
+                viewModel.LoadExampleBitmap();
             };
         }
 

@@ -21,7 +21,7 @@ namespace ColorProfileConverter.ViewModels
 
         private ColorProfile sourceColorProfile, targetColorProfile;
         private Bitmap sourceImage, targetImage;
-
+        private const String exampleBitmapPath = @"examplePhoto.jpg";
         private const String PredefinedColorProfilesConfigFilePath = @"predefinedProfiles.xml";
         public Dictionary<string, ColorProfile> PredefinedColorProfiles { get; set; }
 
@@ -89,6 +89,17 @@ namespace ColorProfileConverter.ViewModels
                 return;
             }
             this.PredefinedColorProfiles = predefinedProfiles.GetPredefinedProfiles();
+        }
+
+        public void LoadExampleBitmap()
+        {
+            try
+            {
+                SourceImage = new Bitmap(exampleBitmapPath);
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }
