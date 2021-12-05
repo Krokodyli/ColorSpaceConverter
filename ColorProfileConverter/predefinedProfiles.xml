@@ -29,5 +29,47 @@
 				<BlueY>0.0177</BlueY>
 			</Config>
 		</Profile>
+		<Profile>
+			<Key>AdobeRGB</Key>
+			<Config>
+				<Gamma>2.2</Gamma>
+				<WhiteX>0.312730</WhiteX>
+				<WhiteY>0.329020</WhiteY>
+				<RedX>0.64</RedX>
+				<RedY>0.33</RedY>
+				<GreenX>0.21</GreenX>
+				<GreenY>0.71</GreenY>
+				<BlueX>0.15</BlueX>
+				<BlueY>0.06</BlueY>
+			</Config>
+		</Profile>
+		<Profile>
+			<Key>AppleRGB</Key>
+			<Config>
+				<Gamma>1.8</Gamma>
+				<WhiteX>0.312730</WhiteX>
+				<WhiteY>0.329020</WhiteY>
+				<RedX>0.625</RedX>
+				<RedY>0.34</RedY>
+				<GreenX>0.28</GreenX>
+				<GreenY>0.595</GreenY>
+				<BlueX>0.155</BlueX>
+				<BlueY>0.07</BlueY>
+			</Config>
+		</Profile>	
+		<Profile>
+			<Key>CIE RGB</Key>
+			<Config>
+				<Gamma>2.2</Gamma>
+				<WhiteX>0.333333</WhiteX>
+				<WhiteY>0.333333</WhiteY>
+				<RedX>0.735</RedX>
+				<RedY>0.265</RedY>
+				<GreenX>0.274</GreenX>
+				<GreenY>0.717</GreenY>
+				<BlueX>0.167</BlueX>
+				<BlueY>0.007</BlueY>
+			</Config>
+		</Profile>
 	</Profiles>
 </PredefinedColorProfiles>
